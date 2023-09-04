@@ -1,0 +1,27 @@
+.counter-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats p {
+    margin: 5px 0;
+}
