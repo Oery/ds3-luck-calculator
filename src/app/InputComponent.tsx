@@ -1,34 +1,43 @@
 import { useState, useEffect } from "react";
 import "./InputComponent.css";
+import Session from "./Session";
+import Settings from "./Settings";
+import { randomUUID } from "crypto";
 
-export default function InputComponent({ setSession, cloneSession }) {
-    const [item, setItem] = useState(cloneSession?.item || "");
-    const [mobsPerRunback, setMobsPerRunback] = useState(
-        cloneSession?.mobsPerRunback || ""
+interface Props {
+    setSession: React.Dispatch<React.SetStateAction<Session | null>>;
+    settings: Settings | null;
+}
+
+function InputComponent({ setSession, settings }: Props) {
+    const [item, setItem] = useState<string>(settings?.item ?? "");
+    const [mobsPerRunback, setMobsPerRunback] = useState<number>(
+        settings?.mobsPerRunback ?? 0
     );
-    const [dropChance, setDropChance] = useState(
-        cloneSession?.dropChance || ""
+    const [dropChance, setDropChance] = useState<number>(
+        settings?.dropChance ?? 0
     );
-    const [characterLuck, setCharacterLuck] = useState(
-        cloneSession?.characterLuck || ""
+    const [characterLuck, setCharacterLuck] = useState<number>(
+        settings?.characterLuck ?? 0
     );
 
     useEffect(() => {
-        if (cloneSession) {
-            setItem(cloneSession.item);
-            setMobsPerRunback(cloneSession.mobsPerRunback);
-            setDropChance(cloneSession.dropChance);
-            setCharacterLuck(cloneSession.characterLuck);
+        if (settings) {
+            setItem(settings.item);
+            setMobsPerRunback(settings.mobsPerRunback);
+            setDropChance(settings.dropChance);
+            setCharacterLuck(settings.characterLuck);
         }
-    }, [cloneSession]);
+    }, [settings]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSession({
+            id: randomUUID(),
             item,
-            mobsPerRunback: parseInt(mobsPerRunback),
-            dropChance: parseFloat(dropChance) / 100,
-            characterLuck: parseInt(characterLuck),
+            mobsPerRunback,
+            dropChance: dropChance / 100,
+            characterLuck: characterLuck,
             mobsKilled: 0,
             dropsLooted: 0,
             runbacks: 0,
@@ -52,8 +61,11 @@ export default function InputComponent({ setSession, cloneSession }) {
                 <label>Mobs per Runback</label>
                 <input
                     type="number"
+                    step="1"
                     value={mobsPerRunback}
-                    onChange={(e) => setMobsPerRunback(e.target.value)}
+                    onChange={(e) =>
+                        setMobsPerRunback(parseInt(e.target.value))
+                    }
                     required
                 />
             </div>
@@ -63,7 +75,7 @@ export default function InputComponent({ setSession, cloneSession }) {
                     type="number"
                     step="0.01"
                     value={dropChance}
-                    onChange={(e) => setDropChance(e.target.value)}
+                    onChange={(e) => setDropChance(parseFloat(e.target.value))}
                     required
                 />
             </div>
@@ -71,8 +83,9 @@ export default function InputComponent({ setSession, cloneSession }) {
                 <label>Character Luck</label>
                 <input
                     type="number"
+                    step="1"
                     value={characterLuck}
-                    onChange={(e) => setCharacterLuck(e.target.value)}
+                    onChange={(e) => setCharacterLuck(parseInt(e.target.value))}
                     required
                 />
             </div>
@@ -80,3 +93,5 @@ export default function InputComponent({ setSession, cloneSession }) {
         </form>
     );
 }
+
+export default InputComponent;

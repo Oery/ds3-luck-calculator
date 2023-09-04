@@ -3,17 +3,27 @@ import React, { useState, useEffect } from "react";
 import InputComponent from "./InputComponent";
 import CounterComponent from "./CounterComponent";
 import HistoryComponent from "./HistoryComponent";
+import Session from "./Session";
 
 import "./page.css";
+import Settings from "./Settings";
 
 export default function App() {
-    const [sessions, setSessions] = useState([]);
-    const [currentSession, setCurrentSession] = useState(null);
-    const [cloneSession, setCloneSession] = useState(null);
+    const [sessions, setSessions] = useState<Session[]>([]);
+    const [currentSession, setCurrentSession] = useState<Session | null>(null);
+    const [settings, setSettings] = useState<Settings | null>(null);
 
     useEffect(() => {
-        setSessions(JSON.parse(localStorage.getItem("sessions")) || []);
-        setCurrentSession(JSON.parse(localStorage.getItem("currentSession")));
+        const sessionsFromStorage = localStorage.getItem("sessions");
+        const currentSessionFromStorage =
+            localStorage.getItem("currentSession");
+
+        setSessions(sessionsFromStorage ? JSON.parse(sessionsFromStorage) : []);
+        setCurrentSession(
+            currentSessionFromStorage
+                ? JSON.parse(currentSessionFromStorage)
+                : null
+        );
     }, []);
 
     useEffect(() => {
@@ -37,13 +47,13 @@ export default function App() {
                 ) : (
                     <InputComponent
                         setSession={setCurrentSession}
-                        cloneSession={cloneSession}
+                        settings={settings}
                     />
                 )}
                 <HistoryComponent
                     sessions={sessions}
                     setSessions={setSessions}
-                    setCloneSession={setCloneSession}
+                    setSettings={setSettings}
                 />
             </div>
         </div>

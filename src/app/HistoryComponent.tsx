@@ -1,18 +1,22 @@
 import "./HistoryComponent.css";
+import Session from "./Session";
+import Settings from "./Settings";
 
-export default function HistoryComponent({
-    sessions,
-    setSessions,
-    setCloneSession,
-}) {
-    const handleDelete = (index) => {
+interface Props {
+    sessions: Session[];
+    setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
+    setSettings: React.Dispatch<React.SetStateAction<Settings | null>>;
+}
+
+function HistoryComponent({ sessions, setSessions, setSettings }: Props) {
+    const handleDelete = (index: number) => {
         const newSessions = sessions.slice();
         newSessions.splice(index, 1);
         setSessions(newSessions);
     };
 
-    const handleClone = (session) => {
-        setCloneSession({
+    const handleClone = (session: Settings) => {
+        setSettings({
             item: session.item,
             mobsPerRunback: session.mobsPerRunback,
             dropChance: session.dropChance * 100, // convert to percentage
@@ -50,15 +54,17 @@ export default function HistoryComponent({
                         const expectedDrops =
                             (session.mobsKilled * adjustedDropChance) / 100;
                         return (
-                            <tr key={index}>
+                            <tr key={session.id}>
                                 <td>{session.item}</td>
                                 <td>{session.mobsKilled}</td>
                                 <td>{session.dropsLooted}</td>
                                 <td>{session.runbacks}</td>
                                 <td>
-                                    {new Date(session.timeElapsed * 1000)
-                                        .toISOString()
-                                        .substr(11, 8)}
+                                    {
+                                        new Date(session.timeElapsed * 1000)
+                                            .toUTCString()
+                                            .split(" ")[4]
+                                    }
                                 </td>
                                 <td>{luck.toFixed(2)}%</td>
                                 <td>{dropsPerHour.toFixed(2)}</td>
@@ -83,3 +89,5 @@ export default function HistoryComponent({
         </div>
     );
 }
+
+export default HistoryComponent;

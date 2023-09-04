@@ -1,16 +1,24 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CounterComponent.css";
+import Session from "./Session";
 
-export default function CounterComponent({
+interface Props {
+    session: Session;
+    setSession: React.Dispatch<React.SetStateAction<Session | null>>;
+    sessions: Session[];
+    setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
+}
+
+function CounterComponent({
     session,
     setSession,
     sessions,
     setSessions,
-}) {
+}: Props) {
     const [mobsKilled, setMobsKilled] = useState(session.mobsKilled);
     const [dropsLooted, setDropsLooted] = useState(session.dropsLooted);
     const [runbacks, setRunbacks] = useState(session.runbacks);
-    const [startTime, setStartTime] = useState(session.startTime);
+    const [startTime] = useState(session.startTime);
     const [timeElapsed, setTimeElapsed] = useState(0);
     const [timerActive, setTimerActive] = useState(true);
 
@@ -127,3 +135,5 @@ export default function CounterComponent({
         </div>
     );
 }
+
+export default CounterComponent;
