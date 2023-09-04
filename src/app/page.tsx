@@ -37,6 +37,7 @@ export default function App() {
     return (
         <div className="container">
             <div className="card">
+                <h1>Dark Souls Luck Calculator</h1>
                 {currentSession ? (
                     <CounterComponent
                         session={currentSession}

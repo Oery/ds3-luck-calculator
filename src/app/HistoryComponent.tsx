@@ -31,14 +31,14 @@ function HistoryComponent({ sessions, setSessions, setSettings }: Props) {
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Mobs Killed</th>
-                        <th>Drops Looted</th>
-                        <th>Runbacks</th>
-                        <th>Session Time</th>
+                        <th>Kills</th>
+                        <th>Drops</th>
+                        <th>Runs</th>
+                        <th>Duration</th>
                         <th>Luck</th>
-                        <th>Drops per Hour</th>
+                        <th>Drops/h</th>
                         <th>Expected Drops</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>

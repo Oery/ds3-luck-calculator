@@ -103,21 +103,21 @@ function CounterComponent({
     return (
         <div>
             <div className="counter-group">
-                <button onClick={handleMobKill}>Add Mob Kill</button>
-                <button onClick={handleDropLoot}>Add Drop Loot</button>
-                <button onClick={handleRunback}>Add Runback</button>
+                <button onClick={handleMobKill}>Add Kill</button>
+                <button onClick={handleDropLoot}>Add Drop</button>
+                <button onClick={handleRunback}>Add Run</button>
             </div>
 
             <div className="stats">
-                <p>Mobs Killed: {mobsKilled}</p>
-                <p>Runbacks: {runbacks}</p>
+                <p>Kills: {mobsKilled}</p>
+                <p>Runs: {runbacks}</p>
                 <p>
                     Time Elapsed:{" "}
                     {new Date(timeElapsed * 1000).toISOString().substr(11, 8)}
                 </p>
-                <p>Drops Looted: {dropsLooted}</p>
+                <p>Drops: {dropsLooted}</p>
                 <p>Expected Drops: {expectedDrops.toFixed(2)}</p>
-                <p>Drops per Hour: {dropsPerHour.toFixed(2)}</p>
+                <p>Drops/h: {dropsPerHour.toFixed(2)}</p>
                 <p>Base Drop Chance: {(baseDropChance * 100).toFixed(2)}%</p>
                 <p>
                     Adjusted Drop Chance:{" "}
@@ -131,7 +131,7 @@ function CounterComponent({
             <button onClick={handlePauseResume}>
                 {timerActive ? "Pause" : "Resume"}
             </button>
-            <button onClick={handleEndSession}>End Session</button>
+            <button onClick={handleEndSession}>End</button>
         </div>
     );
 }

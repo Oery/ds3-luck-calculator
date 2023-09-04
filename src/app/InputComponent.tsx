@@ -61,7 +61,7 @@ function InputComponent({ setSession, settings }: Props) {
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label>Item</label>
+                <label>Item Farmed</label>
                 <input
                     type="text"
                     value={item}
@@ -70,7 +70,7 @@ function InputComponent({ setSession, settings }: Props) {
                 />
             </div>
             <div className="form-group">
-                <label>Mobs per Runback</label>
+                <label>Mobs killed per Run</label>
                 <input
                     type="number"
                     step="1"
@@ -82,7 +82,7 @@ function InputComponent({ setSession, settings }: Props) {
                 />
             </div>
             <div className="form-group">
-                <label>Drop Chance (%)</label>
+                <label>Drop Rate (%)</label>
                 <input
                     type="number"
                     step="0.01"
