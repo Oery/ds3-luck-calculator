@@ -1,8 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import "./InputComponent.css";
 import Session from "./Session";
 import Settings from "./Settings";
-import { randomUUID } from "crypto";
 
 interface Props {
     setSession: React.Dispatch<React.SetStateAction<Session | null>>;
@@ -14,8 +15,8 @@ function InputComponent({ setSession, settings }: Props) {
     const [mobsPerRunback, setMobsPerRunback] = useState<number>(
         settings?.mobsPerRunback ?? 0
     );
-    const [dropChance, setDropChance] = useState<number>(
-        settings?.dropChance ?? 0
+    const [dropChance, setDropChance] = useState<string>(
+        settings?.dropChance.toString() ?? ""
     );
     const [characterLuck, setCharacterLuck] = useState<number>(
         settings?.characterLuck ?? 0
@@ -25,10 +26,21 @@ function InputComponent({ setSession, settings }: Props) {
         if (settings) {
             setItem(settings.item);
             setMobsPerRunback(settings.mobsPerRunback);
-            setDropChance(settings.dropChance);
+            setDropChance(settings.dropChance.toString());
             setCharacterLuck(settings.characterLuck);
         }
     }, [settings]);
+
+    function randomUUID(): string {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+            /[xy]/g,
+            function (c) {
+                var r = (Math.random() * 16) | 0,
+                    v = c == "x" ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            }
+        );
+    }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -36,7 +48,7 @@ function InputComponent({ setSession, settings }: Props) {
             id: randomUUID(),
             item,
             mobsPerRunback,
-            dropChance: dropChance / 100,
+            dropChance: parseFloat(dropChance) / 100,
             characterLuck: characterLuck,
             mobsKilled: 0,
             dropsLooted: 0,
@@ -75,7 +87,7 @@ function InputComponent({ setSession, settings }: Props) {
                     type="number"
                     step="0.01"
                     value={dropChance}
-                    onChange={(e) => setDropChance(parseFloat(e.target.value))}
+                    onChange={(e) => setDropChance(e.target.value)}
                     required
                 />
             </div>

@@ -1,5 +1,3 @@
-import { UUID } from "crypto";
-
 interface Session {
     item: string;
     mobsPerRunback: number;
@@ -11,7 +9,7 @@ interface Session {
     startTime: number;
     endTime?: number;
     timeElapsed: number;
-    id: UUID;
+    id: string;
 }
 
 export default Session;
