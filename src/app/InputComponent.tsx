@@ -1,12 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import {
+    useState,
+    useEffect,
+    Dispatch,
+    SetStateAction,
+    FormEvent,
+} from "react";
 import "./InputComponent.css";
 import Session from "./Session";
 import Settings from "./Settings";
 
 interface Props {
-    setSession: React.Dispatch<React.SetStateAction<Session | null>>;
+    setSession: Dispatch<SetStateAction<Session | null>>;
     settings: Settings | null;
 }
 
@@ -35,14 +41,14 @@ function InputComponent({ setSession, settings }: Props) {
         return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
             /[xy]/g,
             function (c) {
-                var r = (Math.random() * 16) | 0,
+                const r = (Math.random() * 16) | 0,
                     v = c == "x" ? r : (r & 0x3) | 0x8;
                 return v.toString(16);
             }
         );
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         setSession({
             id: randomUUID(),

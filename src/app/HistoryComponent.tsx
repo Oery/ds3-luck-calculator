@@ -1,6 +1,7 @@
 import "./HistoryComponent.css";
 import Session from "./Session";
 import Settings from "./Settings";
+import React from "react";
 
 interface Props {
     sessions: Session[];

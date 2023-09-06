@@ -113,7 +113,7 @@ function CounterComponent({
                 <p>Runs: {runbacks}</p>
                 <p>
                     Time Elapsed:{" "}
-                    {new Date(timeElapsed * 1000).toISOString().substr(11, 8)}
+                    {new Date(timeElapsed * 1000).toUTCString().split(" ")[4]}
                 </p>
                 <p>Drops: {dropsLooted}</p>
                 <p>Expected Drops: {expectedDrops.toFixed(2)}</p>
