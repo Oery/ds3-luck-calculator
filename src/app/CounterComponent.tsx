@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import "./CounterComponent.css";
 import Session from "./Session";
 
 interface Props {
     session: Session;
-    setSession: React.Dispatch<React.SetStateAction<Session | null>>;
+    setSession: Dispatch<SetStateAction<Session | null>>;
     sessions: Session[];
-    setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
+    setSessions: Dispatch<SetStateAction<Session[]>>;
 }
 
 function CounterComponent({

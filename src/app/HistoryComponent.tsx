@@ -1,12 +1,12 @@
 import "./HistoryComponent.css";
 import Session from "./Session";
-import Settings from "./Settings";
-import React from "react";
+import SessionSettings from "./SessionSettings";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     sessions: Session[];
-    setSessions: React.Dispatch<React.SetStateAction<Session[]>>;
-    setSettings: React.Dispatch<React.SetStateAction<Settings | null>>;
+    setSessions: Dispatch<SetStateAction<Session[]>>;
+    setSettings: Dispatch<SetStateAction<SessionSettings | null>>;
 }
 
 function HistoryComponent({ sessions, setSessions, setSettings }: Props) {
@@ -16,7 +16,7 @@ function HistoryComponent({ sessions, setSessions, setSettings }: Props) {
         setSessions(newSessions);
     };
 
-    const handleClone = (session: Settings) => {
+    const handleClone = (session: SessionSettings) => {
         setSettings({
             item: session.item,
             mobsPerRunback: session.mobsPerRunback,
@@ -46,14 +46,15 @@ function HistoryComponent({ sessions, setSessions, setSettings }: Props) {
                     {sessions.map((session, index) => {
                         const baseDropChance = session.dropChance;
                         const adjustedDropChance =
-                            baseDropChance * (1 + session.characterLuck / 100);
+                            baseDropChance * (session.characterLuck / 100);
                         const luck =
                             ((session.dropsLooted / session.mobsKilled) * 100) /
                             adjustedDropChance;
                         const dropsPerHour =
                             (session.dropsLooted / session.timeElapsed) * 3600;
                         const expectedDrops =
-                            (session.mobsKilled * adjustedDropChance) / 100;
+                            session.mobsKilled * adjustedDropChance;
+
                         return (
                             <tr key={session.id}>
                                 <td>{session.item}</td>

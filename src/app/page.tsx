@@ -6,12 +6,12 @@ import HistoryComponent from "./HistoryComponent";
 import Session from "./Session";
 
 import "./page.css";
-import Settings from "./Settings";
+import SessionSettings from "./SessionSettings";
 
 export default function App() {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [currentSession, setCurrentSession] = useState<Session | null>(null);
-    const [settings, setSettings] = useState<Settings | null>(null);
+    const [settings, setSettings] = useState<SessionSettings | null>(null);
 
     useEffect(() => {
         const sessionsFromStorage = localStorage.getItem("sessions");

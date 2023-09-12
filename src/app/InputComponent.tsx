@@ -9,11 +9,11 @@ import {
 } from "react";
 import "./InputComponent.css";
 import Session from "./Session";
-import Settings from "./Settings";
+import SessionSettings from "./SessionSettings";
 
 interface Props {
     setSession: Dispatch<SetStateAction<Session | null>>;
-    settings: Settings | null;
+    settings: SessionSettings | null;
 }
 
 function InputComponent({ setSession, settings }: Props) {
